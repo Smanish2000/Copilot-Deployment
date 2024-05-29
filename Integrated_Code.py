@@ -2044,8 +2044,8 @@ def get_conversational_chain_generic():
             Based on these relations, generate the summary using the relevant data from the dataset.
 
         Data Utilization:
-        1. Use only the provided dataset for generating responses.
-        2. Do not use or rely on pre-trained information other than Copilot Product Data which is given in Dataset.
+        IMPORTANT: 1. Use only the provided dataset for generating responses.
+        IMPORTANT: 2. Do not use or rely on pre-trained information other than Copilot Product Data which is given in Dataset. Limit Yourself to data you are provided with.
 
         Dataset Columns:
         Review: This column contains the opinions and experiences of users regarding different product families across geographies, providing insights into customer satisfaction or complaints and areas for improvement.
