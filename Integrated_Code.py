@@ -49,8 +49,11 @@ model = AzureChatOpenAI(
 
 Copilot_Sentiment_Data  = pd.read_csv("New_CoPilot_Data.csv")
 
-
-
+st.markdown("""
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+""", unsafe_allow_html=True)
 
 def Sentiment_Score_Derivation(value):
     try:
