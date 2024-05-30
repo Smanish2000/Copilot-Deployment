@@ -38,9 +38,6 @@ global history
 
 history = []
 
-
-
-
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 os.environ["AZURE_OPENAI_API_KEY"] = "a22e367d483f4718b9e96b1f52ce6d53"
 os.environ["AZURE_OPENAI_ENDPOINT"] = "https://hulk-openai.openai.azure.com/"
@@ -422,7 +419,7 @@ def query_quant(user_question,history,vector_store_path="faiss_index_CopilotSamp
 
 
 def get_conversational_chain_aspect_wise_detailed_summary():
-    global model
+    global model, history
     try:
         prompt_template = """
         
@@ -512,7 +509,7 @@ def get_conversational_chain_aspect_wise_detailed_summary():
           Understanding product family names even when written in reverse order or missing connecting words (e.g., ‘copilot in windows 11’ as ‘copilot windows’ and ‘copilot for security’ as ‘copilot security’ etc.).
           Utilizing context and available data columns to infer the correct meaning and respond appropriately to user queries involving variations in product family names or geographical references
           Please provide a comprehensive Review summary, feature comparison, feature suggestions for specific product families and actionable insights that can help in product development and marketing strategies.
-          Generate acurate response only, do not provide extra information.
+          Generate acurate response only, do not provide extra information.""" + history + """\n
             
         Context:\n {context}?\n
         Question: \n{question}\n
@@ -541,7 +538,7 @@ def query_aspect_wise_detailed_summary(user_question,vector_store_path="faiss_in
         
         
 def get_conversational_chain_aspect_wise_detailed_summary():
-    global model
+    global model, history
     try:
         prompt_template = """
         
@@ -631,7 +628,8 @@ def get_conversational_chain_aspect_wise_detailed_summary():
           Understanding product family names even when written in reverse order or missing connecting words (e.g., ‘copilot in windows 11’ as ‘copilot windows’ and ‘copilot for security’ as ‘copilot security’ etc.).
           Utilizing context and available data columns to infer the correct meaning and respond appropriately to user queries involving variations in product family names or geographical references
           Please provide a comprehensive Review summary, feature comparison, feature suggestions for specific product families and actionable insights that can help in product development and marketing strategies.
-          Generate acurate response only, do not provide extra information.
+          Generate acurate response only, do not provide extra information.\n Following is the previous conversation from User and Response, use it to get context only:""" + str(history) + """\n
+          Use the above conversation chain to gain context if the current prompt requires context from previous conversation.\n
         Context:\n {context}?\n
         Question: \n{question}\n
  
@@ -799,7 +797,7 @@ def query_quant_classify2(user_question, vector_store_path="faiss_index_CopilotS
 
 
 def get_conversational_chain_detailed_summary():
-    global model
+    global model, history
     try:
         prompt_template = f"""
             Important: You are provided with an input dataset, also you know that the Overall Net Sentiment for all reviews is {overall_net_sentiment} and total reviews are {overall_review_count}.
@@ -873,7 +871,9 @@ def get_conversational_chain_detailed_summary():
               - Recognizing abbreviations for country names (e.g., ‘DE’ for Germany, ‘USA’or 'usa' or 'US' for the United States of America) and expanding them to their full names for clarity.
               - Understanding product family names even when written in reverse order or missing connecting words (e.g., ‘copilot in windows 11’ as ‘copilot windows’ and ‘copilot for security’ as ‘copilot security’ etc.).
               - Utilizing context and available data columns to infer the correct meaning and respond appropriately to user queries involving variations in product family names or geographical references]
-             Important: Generate outputs using the provided dataset only, don't use pre-trained information to generate outputs.
+             Important: Generate outputs using the provided dataset only, don't use pre-trained information to generate outputs.\n Following is the previous conversation from User and Response, use it to get context only:""" + str(history) + """\n
+                    Use the above conversation chain to gain context if the current prompt requires context from previous conversation.\n
+            Context:\n {context}?\n
             Question: \n{question}\n
      
             Answer:
@@ -900,7 +900,7 @@ def query_detailed_summary(dataframe_as_dict,user_question, history, vector_stor
         return err
         
 def generate_chart_insight_llm(user_question):
-    global model
+    global model, history
     try:
         prompt_template = """
         1.Based on the data available in the input, generate meaningful insights using the numbers and summarize them. 
@@ -910,7 +910,8 @@ def generate_chart_insight_llm(user_question):
         5.For values like Net_Sentiment score, positive values indicate positive overall sentiment, negative values indicate negative overall sentiment and 0 value indicate neutral overall sentiment. For generating insights around net_sentiment feature, consider this information.
         IMPORTANT: If the maximum numerical value is less than or equal to 100, then the numerical column is indicating percentage results - therefore while referring to numbers in your insights, add % at the end of the number.
         IMPORTANT : Use the data from the input only and do not give information from pre-trained data.
-        IMPORTANT : Dont provide any prompt message written here in the response, this is for your understanding purpose .
+        IMPORTANT : Dont provide any prompt message written here in the response, this is for your understanding purpose \n Following is the previous conversation from User and Response, use it to get context only:""" + str(history) + """\n
+                Use the above conversation chain to gain context if the current prompt requires context from previous conversation.\n
         Context:\n {context}?\n
         Question: \n{question}\n
  
@@ -1142,7 +1143,7 @@ def generate_chart(df):
                     # st.write("Error in converting chart to html")
 
 def generate_chart_insight_llm(user_question):
-    global model
+    global model, history
     try:
         prompt_template = """
         1.Based on the data available in the input, generate meaningful insights using the numbers and summarize them. 
@@ -1152,7 +1153,8 @@ def generate_chart_insight_llm(user_question):
         5.For values like Net_Sentiment score, positive values indicate positive overall sentiment, negative values indicate negative overall sentiment and 0 value indicate neutral overall sentiment. For generating insights around net_sentiment feature, consider this information.
         IMPORTANT: If the maximum numerical value is less than or equal to 100, then the numerical column is indicating percentage results - therefore while referring to numbers in your insights, add % at the end of the number.
         IMPORTANT : Use the data from the input only and do not give information from pre-trained data.
-        IMPORTANT : Dont provide any prompt message written here in the response, this is for your understanding purpose.
+        IMPORTANT : Dont provide any prompt message written here in the response, this is for your understanding purpose \n Following is the previous conversation from User and Response, use it to get context only:""" + str(history) + """\n
+                Use the above conversation chain to gain context if the current prompt requires context from previous conversation.\n
         Context:\n {context}?\n
         Question: \n{question}\n
  
@@ -1171,7 +1173,7 @@ def generate_chart_insight_llm(user_question):
 #------------------------------------------------------------------------------------- Generic  ---------------------------------------------------------------------------------------#
 
 def get_conversational_chain_generic():
-    global model
+    global model, history
     try:
         prompt_template = """
         You are an AI ChatBot where you will get the data of Copilot products and you should generate the response based on that Dataset only for user question by following the below instructions.
@@ -1208,7 +1210,8 @@ def get_conversational_chain_generic():
         Understanding User Queries:
         1. Carefully read and understand the full user's question.
         2. If the question is outside the scope of the dataset, respond with: "Sorry! I do not have sufficient information. Can you provide more details?"
-        3. Respond accurately based on the provided Copilot Products Data only.
+        3. Respond accurately based on the provided Copilot Products Data only.\n Following is the previous conversation from User and Response, use it to get context only:""" + str(history) + """\n
+                Use the above conversation chain to gain context if the current prompt requires context from previous conversation.\n
         Context:\n {context}?\n
         Question: \n{question}\n
  
@@ -1497,27 +1500,23 @@ Summarization:
         -If user mention 2 devices for summarization, Go with comparision
         -If user mention 3 devices for summarization, Go with Generic
         -Don't select this, if the question ask to summarize reviews for a feature.
-        
 Quantifiable and Visualization:
        - Provides data retrieval and visualization for any Product Family.
        - Choose this for queries related to net sentiment, aspect sentiment, and review count.
        - Examples:
             "What is the net sentiment of [Product Family]?"
             "Give me the aspect sentiment of [Product Family]."
-            "Which Product Family has the highest review count?" .
-            "Net sentiment of [Product Family 1], [Product Family 2], [Product Family 3],..etc.?
+            "Which Product Family has the highest review count?" 
        - Do not choose this for general questions.
        - Whenver user asks about top 20 aspects, keywords choose this function
        
 Comparison:
 
         - Compares two different Product Families based on user reviews.
-        - Choose this if exactly two Product Families are mentioned. If more than two devices are mentioned, do not choose this function. Choose either "Quantifiable and Visualization" or "Generic" Based on the user Question.
+        - Choose this if exactly two Product Families are mentioned. 
        Examples:
         - "Compare [Product Family 1] and [Product Family 2] on performance."
         - Do not choose Comparison if more than two Product Families are mentioned.
-        - Compare [Product 1], [Product 2] - In this case, it should choose this function
-        - IMPORTANT : Compare [Product 1], [Product 2], [Product 3], .... - In this case, you should not choose this function instead it should choose either Qunatifiable/Generic as more than 2 devices are mentioned.
 
 Generic:
 
@@ -1569,7 +1568,7 @@ def classify_prompts(user_question):
 
 
 def get_conversational_chain_detailed_compare():
-    global model
+    global model, history
     try:
         prompt_template = """
         
@@ -1646,7 +1645,8 @@ def get_conversational_chain_detailed_compare():
           Please provide a comprehensive Review summary, feature comparison, feature suggestions for specific product families and actionable insights that can help in product development and marketing strategies.
           Generate acurate response only, do not provide extra information.
             
-            Important: Generate outputs using the provided dataset only, don't use pre-trained information to generate outputs.
+            Important: Generate outputs using the provided dataset only, don't use pre-trained information to generate outputs.\n Following is the previous conversation from User and Response, use it to get context only:""" + str(history) + """\n
+                Use the above conversation chain to gain context if the current prompt requires context from previous conversation.\n
         Context:\n {context}?\n
         Question: \n{question}\n
  
@@ -1787,7 +1787,7 @@ def rephrase_prompt(user_question):
 
 
 def user_ques(user_question_1, user_question, classification):
-    global full_response
+    global full_response, history
     if user_question_1:
         device_list = Copilot_Sentiment_Data['Product_Family'].to_list()
         sorted_device_list_desc = sorted(device_list, key=lambda x: len(x), reverse=True)
@@ -1812,7 +1812,7 @@ def user_ques(user_question_1, user_question, classification):
         # st.write(device_a)
         # st.write(device_b)
 
-        if classification == "Comparison":
+        if device_a != None and device_b != None:
             try:
                 col1,col2 = st.columns(2) 
                 data = query_quant(user_question_1,[])
@@ -1830,7 +1830,7 @@ def user_ques(user_question_1, user_question, classification):
                     st.dataframe(styled_df_a)
                     first_table = styled_df_a.to_html(index = False)
                     full_response += first_table
-
+                    history = check_history_length(history,first_table)
 
                 with col2:
 
@@ -1846,6 +1846,7 @@ def user_ques(user_question_1, user_question, classification):
                     st.dataframe(styled_df_b)
                     second_table = styled_df_b.to_html(index = False)
                     full_response += second_table
+                    history = check_history_length(history,second_table)
                 try:
                     user_question_1 = user_question_1.replace("Compare", "Summarize reviews of")
                 except:
@@ -1853,11 +1854,12 @@ def user_ques(user_question_1, user_question, classification):
                 comparision_summary = query_detailed_compare(user_question + "Which have the following sentiment data" + str(c)+str(d))
                 st.write(comparision_summary)
                 full_response += comparision_summary
+                history = check_history_length(history,comparision_summary)
             except:
                 st.write(f"Unable to fetch relevant details based on the provided input. Kindly refine your search query and try again!")
 
 
-        elif (device_a != None and device_b == None) | (device_a == None and device_b == None) | (device_a != None and device_b != None):
+        elif (device_a != None and device_b == None) | (device_a == None and device_b == None):
         
             try:
 
@@ -1896,9 +1898,11 @@ def user_ques(user_question_1, user_question, classification):
                     summary_ans = query_aspect_wise_detailed_summary(user_question+"which have the following sentiment :" + str(dataframe_as_dict) + "these are the imporatnt aspect based on aspect ranking : " + str(aspects_list) + "and their respective keywords" + str(b))
                     st.write(summary_ans)
                     full_response += summary_ans
+                    history = check_history_length(history,summary_ans)
                     st.dataframe(styled_df)
                     styled_df_html = styled_df.to_html(index=False)
                     full_response += styled_df_html  # Initialize full_response with the HTML table
+                    history = check_history_length(history,styled_df_html)
                                 
                 elif classify_function == "2":
                     data= quantifiable_data(user_question_1)
@@ -1910,6 +1914,7 @@ def user_ques(user_question_1, user_question, classification):
                         st.dataframe(data)
                         data_1 = data.to_html(index = False)
                         full_response += data_1
+                        history = check_history_length(history,data_1)
                         if 'NET_SENTIMENT' in data.columns:
                             # st.write(f" Overall Net Sentiment is {overall_net_sentiment} for {overall_review_count} reviews *")
                             data['Impact']=np.where(data['NET_SENTIMENT']<overall_net_sentiment,'Driving Overall Net Sentiment LOW','Driving Overall Net Sentiment HIGH')
@@ -1927,6 +1932,7 @@ def user_ques(user_question_1, user_question, classification):
                         qunat_summary = query_detailed_summary(str(dataframe_as_dict),user_question + "Which have the following sentiment data : " + str(dataframe_as_dict),[])
                         st.write(qunat_summary)
                         full_response += qunat_summary
+                        history = check_history_length(history,qunat_summary)
                         if(len(data))>1:
                             generate_chart(data)
                     else:
@@ -1977,6 +1983,7 @@ if __name__ == "__main__":
                         user_question_1 = user_question
                         Gen_Ans = query_detailed_generic(user_question_1)
                         st.write(Gen_Ans)
+                        history = check_history_length(history,Gen_Ans)
                         full_response += Gen_Ans
                         
                     st.session_state.messages.append({"role": "assistant", "content": full_response, "is_html": True})
