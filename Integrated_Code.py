@@ -435,70 +435,58 @@ def get_conversational_chain_aspect_wise_detailed_summary():
 
         For Each Aspect
 
-        Condition 1 : If the net sentiment is less than aspect sentiment, which means that particular aspect is driving the net sentiment Higher for that Product. In this case provide why the aspect sentiment is lower than net sentiment.
-        Condition 2 : If the net sentiment is high than aspect sentiment, which means that particular aspect is driving the net sentiment Lower for that Product. In this case provide why the aspect sentiment is higher than net sentiment. 
+        Condition 1 : If the aspect sentiment is higher than net sentiment, which means that particular aspect is driving the net sentiment high for that Product. In this case provide why the aspect sentiment is higher than net sentiment based on reviews.
+        Condition 2 : If the aspect sentiment is Lower than net sentiment, which means that particular aspect is driving the net sentiment Lower for that Product. In this case provide why the aspect sentiment is lower than net sentiment based on reviews.
 
         IMPORTANT: Use only the data provided to you and do not rely on pre-trained documents.
 
             Your summary should justify the above conditions and tie in with the net sentiment and aspect sentiment and keywords. Mention the difference between Net Sentiment and Aspect Sentiment (e.g., -2% or +2% higher than net sentiment) in your summary and provide justification.
-
-            Your response should be : 
-
-            For Each Aspect 
-                    Net Sentiment of the Product and aspect sentiment of that aspect of the Product (Mention Code Generation, Aspect Sentiment) . 
-                    Top Keyword contribution and their positive and negative percentages and summarize Reviews what user have spoken regarding this keywords in 2 to 3 lines detailed
-                    Top 2nd Keyword contribution and their positive and negative percentages and summarize Reviews what user have spoken regarding this keywords in 2 to 3 lines detailed
-                       Limit yourself to top 3 keywords and don't mention as top 1, top 2, top 3 and all. Mention them as pointers
-                    Overall Summary
-
-            IMPORTANT : Example Template :
-
-            ALWAYS FOLLOW THIS TEMPLATE : Don't miss any of the below:
-
-            Response : "BOLD ALL THE NUMBERS"
 
             IMPOPRTANT : Start with : "These are the 4 major aspects users commented about" and mention their review count contributions. These top 4 shold be based on ASPECT_RANKING Column
 
                            These are the 4 top ranked aspects users commented about - IMPORTANT : These top 4 should be from Aspect Ranking:
                            
                            IMPORTANT : DO NOT CONSIDER GENERIC AS ONE OF THE ASPECTS
+                           
+                           
+                       Net Sentiment is nothing but the "TOTAL" - Sentiment in the Provided data 
 
-                        - Total Review for CoPilot for Mobile Product is 1200
-                        - Code Generarion: 4.82% of the reviews mentioned this aspect
-                        - Ease of Use: 6% of the reviews mentioned this aspect
-                        - Compatibility: 9.71% of the reviews mentioned this aspect
-                        - Interface: 7.37% of the reviews mentioned this aspect
+                        - Total Review for CoPilot for Mobile Product is y
+                        - Code Generarion: x% of the reviews mentioned this aspect
+                        - Ease of Use: x% of the reviews mentioned this aspect
+                        - Compatibility: x% of the reviews mentioned this aspect
+                        - Interface: x% of the reviews mentioned this aspect
 
                         Code Generation:
-                        - The aspect sentiment for price is 52.8%, which is higher than the net sentiment of 38.5%. This indicates that the aspect of price is driving the net sentiment higher for the Vivobook.
-                        -  The top keyword for price is "buy" with a contribution of 28.07%. It has a positive percentage of 13.44% and a negative percentage of 4.48%.
-                              - Users mentioned that the Vivobook offers good value for the price and is inexpensive.
-                        - Another top keyword for price is "price" with a contribution of 26.89%. It has a positive percentage of 23.35% and a negative percentage of 0.24%.
-                            - Users praised the affordable price of the Vivobook and mentioned that it is worth the money.
+                        - The aspect sentiment for price is x%, which is higher than the net sentiment of x%. This indicates that the aspect of price is driving the net sentiment higher for the Github Copilot.
+                        -  The top keyword for price is "buy" with a contribution of x%. It has a positive percentage of x% and a negative percentage of x%.
+                              - Users mentioned that the Github Copilot offers good value for the price and is inexpensive.
+                        - Another top keyword for price is "price" with a contribution of 26.89%. It has a positive percentage of x% and a negative percentage of x%.
+                            - Users praised the affordable price of the Github Copilot and mentioned that it is worth the money.
 
                         Ease of use:
-                        - The aspect sentiment for performance is 36.5%, which is lower than the net sentiment of 38.5%. This indicates that the aspect of performance is driving the net sentiment lower for the Vivobook.
-                        - The top keyword for performance is "fast" with a contribution of 18.24%. It has a positive percentage of 16.76% and a neutral percentage of 1.47%.
-                            - Users mentioned that the Vivobook is fast and offers good speed.
-                        - Another top keyword for performance is "speed" with a contribution of 12.06%. It has a positive percentage of 9.12% and a negative percentage of 2.06%.
-                            - Users praised the speed of the Vivobook and mentioned that it is efficient.
+                        - The aspect sentiment for performance is x%, which is lower than the net sentiment of x%. This indicates that the aspect of performance is driving the net sentiment lower for the Github Copilot.
+                        - The top keyword for performance is "fast" with a contribution of x%. It has a positive percentage of 16.76% and a neutral percentage of x%.
+                            - Users mentioned that the Github Copilot is fast and offers good speed.
+                        - Another top keyword for performance is "speed" with a contribution of x%. It has a positive percentage of 9.12% and a negative percentage of x%.
+                            - Users praised the speed of the Github Copilot and mentioned that it is efficient.
 
 
                         lIKE THE ABOVE ONE EXPLAIN OTHER 2 ASPECTS
 
                         Overall Summary:
-                        The net sentiment for the Vivobook is 38.5%, while the aspect sentiment for price is 52.8%, performance is 36.5%, software is 32.2%, and design is 61.9%. This indicates that the aspects of price and design are driving the net sentiment higher, while the aspects of performance and software are driving the net sentiment lower for the Vivobook. Users mentioned that the Vivobook offers good value for the price, is fast and efficient in performance, easy to set up and use in terms of software, and has a sleek and high-quality design.
+                        The net sentiment for the Github Copilot is x%, while the aspect sentiment for price is x%, performance is x%, software is x%, and design is x%. This indicates that the aspects of price and design are driving the net sentiment higher, while the aspects of performance and software are driving the net sentiment lower for the Github Copilot. Users mentioned that the Github Copilot offers good value for the price, is fast and efficient in performance, easy to set up and use in terms of software, and has a sleek and high-quality design.
 
                         Some Pros and Cons of the device, 
 
 
-           IMPORTANT : Do not ever change the above template of Response. Give Spaces accordingly in the response to make it more readable.
+           IMPORTANT : Do not ever change the above template of Response. Give Spaces accordingly in the response to make it more readable. In the above template, x are the numbers you should use from the data provided to you.
 
            A Good Response should contains all the above mentioned poniters in the example. 
                1. Net Sentiment and The Aspect Sentiment
                2. Total % of mentions regarding the Aspect
                3. A Quick Summary of whether the aspect is driving the sentiment high or low
-               4. Top Keyword: "Usable" (Contribution: 33.22%, Positive: 68.42%, Negative: 6.32%)
+               4. Top Keyword: "Usable" (Contribution: x%, Positive: x%, Negative: x%)
                     - Users have praised the usable experience on the Cobilot for Mobile, with many mentioning the smooth usage and easy to use
                     - Some users have reported experiencing lag while not very great to use, but overall, the gaming Ease of use is highly rated.
 
@@ -554,8 +542,8 @@ def get_conversational_chain_aspect_wise_detailed_summary():
 
         For Each Aspect
 
-        Condition 1 : If the net sentiment is less than aspect sentiment, which means that particular aspect is driving the net sentiment Higher for that Product. In this case provide why the aspect sentiment is lower than net sentiment.
-        Condition 2 : If the net sentiment is high than aspect sentiment, which means that particular aspect is driving the net sentiment Lower for that Product. In this case provide why the aspect sentiment is higher than net sentiment. 
+        Condition 1 : If the aspect sentiment is higher than net sentiment, which means that particular aspect is driving the net sentiment high for that Product. In this case provide why the aspect sentiment is higher than net sentiment based on reviews.
+        Condition 2 : If the aspect sentiment is Lower than net sentiment, which means that particular aspect is driving the net sentiment Lower for that Product. In this case provide why the aspect sentiment is lower than net sentiment based on reviews. 
 
         IMPORTANT: Use only the data provided to you and do not rely on pre-trained documents.
 
@@ -580,44 +568,46 @@ def get_conversational_chain_aspect_wise_detailed_summary():
 
                            These are the 4 top ranked aspects users commented about - IMPORTANT : These top 4 should be from Aspect Ranking:
                            
+                           Net Sentiment is nothing but the "TOTAL" - Sentiment in the Provided data 
+                           
                            IMPORTANT : DO NOT CONSIDER GENERIC AS ONE OF THE ASPECTS
 
-                        - Total Review for CoPilot for Mobile Product is 1200
-                        - Code Generarion: 4.82% of the reviews mentioned this aspect
-                        - Ease of Use: 6% of the reviews mentioned this aspect
-                        - Compatibility: 9.71% of the reviews mentioned this aspect
-                        - Interface: 7.37% of the reviews mentioned this aspect
+                        - Total Review for CoPilot for Mobile Product is Y
+                        - Code Generarion: x% of the reviews mentioned this aspect
+                        - Ease of Use: x% of the reviews mentioned this aspect
+                        - Compatibility: x% of the reviews mentioned this aspect
+                        - Interface: x% of the reviews mentioned this aspect
 
                         Code Generation:
-                        - The aspect sentiment for price is 52.8%, which is higher than the net sentiment of 38.5%. This indicates that the aspect of price is driving the net sentiment higher for the Vivobook.
-                        -  The top keyword for price is "buy" with a contribution of 28.07%. It has a positive percentage of 13.44% and a negative percentage of 4.48%.
-                              - Users mentioned that the Vivobook offers good value for the price and is inexpensive.
-                        - Another top keyword for price is "price" with a contribution of 26.89%. It has a positive percentage of 23.35% and a negative percentage of 0.24%.
-                            - Users praised the affordable price of the Vivobook and mentioned that it is worth the money.
+                        - The aspect sentiment for price is x%, which is higher than the net sentiment of x%. This indicates that the aspect of price is driving the net sentiment higher for the Github Copilot.
+                        -  The top keyword for price is "buy" with a contribution of x%. It has a positive percentage of x% and a negative percentage of x%.
+                              - Users mentioned that the Github Copilot offers good value for the price and is inexpensive.
+                        - Another top keyword for price is "price" with a contribution of 26.89%. It has a positive percentage of x% and a negative percentage of x%.
+                            - Users praised the affordable price of the Github Copilot and mentioned that it is worth the money.
 
                         Ease of use:
-                        - The aspect sentiment for performance is 36.5%, which is lower than the net sentiment of 38.5%. This indicates that the aspect of performance is driving the net sentiment lower for the Vivobook.
-                        - The top keyword for performance is "fast" with a contribution of 18.24%. It has a positive percentage of 16.76% and a neutral percentage of 1.47%.
-                            - Users mentioned that the Vivobook is fast and offers good speed.
-                        - Another top keyword for performance is "speed" with a contribution of 12.06%. It has a positive percentage of 9.12% and a negative percentage of 2.06%.
-                            - Users praised the speed of the Vivobook and mentioned that it is efficient.
+                        - The aspect sentiment for performance is x%, which is lower than the net sentiment of x%. This indicates that the aspect of performance is driving the net sentiment lower for the Github Copilot.
+                        - The top keyword for performance is "fast" with a contribution of x%. It has a positive percentage of 16.76% and a neutral percentage of x%.
+                            - Users mentioned that the Github Copilot is fast and offers good speed.
+                        - Another top keyword for performance is "speed" with a contribution of x%. It has a positive percentage of 9.12% and a negative percentage of x%.
+                            - Users praised the speed of the Github Copilot and mentioned that it is efficient.
 
 
                         lIKE THE ABOVE ONE EXPLAIN OTHER 2 ASPECTS
 
                         Overall Summary:
-                        The net sentiment for the Vivobook is 38.5%, while the aspect sentiment for price is 52.8%, performance is 36.5%, software is 32.2%, and design is 61.9%. This indicates that the aspects of price and design are driving the net sentiment higher, while the aspects of performance and software are driving the net sentiment lower for the Vivobook. Users mentioned that the Vivobook offers good value for the price, is fast and efficient in performance, easy to set up and use in terms of software, and has a sleek and high-quality design.
+                        The net sentiment for the Github Copilot is x%, while the aspect sentiment for price is x%, performance is x%, software is x%, and design is x%. This indicates that the aspects of price and design are driving the net sentiment higher, while the aspects of performance and software are driving the net sentiment lower for the Github Copilot. Users mentioned that the Github Copilot offers good value for the price, is fast and efficient in performance, easy to set up and use in terms of software, and has a sleek and high-quality design.
 
                         Some Pros and Cons of the device, 
 
 
-           IMPORTANT : Do not ever change the above template of Response. Give Spaces accordingly in the response to make it more readable.
+           IMPORTANT : Do not ever change the above template of Response. Give Spaces accordingly in the response to make it more readable. In the above template, x are the numbers you should use from the data provided to you.
 
            A Good Response should contains all the above mentioned poniters in the example. 
                1. Net Sentiment and The Aspect Sentiment
                2. Total % of mentions regarding the Aspect
                3. A Quick Summary of whether the aspect is driving the sentiment high or low
-               4. Top Keyword: "Usable" (Contribution: 33.22%, Positive: 68.42%, Negative: 6.32%)
+               4. Top Keyword: "Usable" (Contribution: x%, Positive: x%, Negative: x%)
                     - Users have praised the usable experience on the Cobilot for Mobile, with many mentioning the smooth usage and easy to use
                     - Some users have reported experiencing lag while not very great to use, but overall, the gaming Ease of use is highly rated.
 
@@ -1816,6 +1806,7 @@ def user_ques(user_question_1, user_question, classification):
             try:
                 col1,col2 = st.columns(2) 
                 data = query_quant(user_question_1,[])
+                e = data.to_dict(orient='records')
                 device_a_table,device_b_table = split_table(data,device_a,device_b)   
                 with col1:
                     device_a_table = device_a_table.dropna(subset=['ASPECT_SENTIMENT'])
@@ -1854,7 +1845,13 @@ def user_ques(user_question_1, user_question, classification):
                 st.write(comparision_summary)
                 full_response += comparision_summary
             except:
-                st.write(f"Unable to fetch relevant details based on the provided input. Kindly refine your search query and try again!")
+                try:
+                    st.dataframe(data)
+                    comparision_summary = query_detailed_compare(user_question + "Which have the following sentiment data" + str(e))
+                    st.write(comparision_summary)
+                    full_response += comparision_summary
+                except:
+                    st.write(f"Unable to fetch relevant details based on the provided input. Kindly refine your search query and try again!")
 
 
         elif (device_a != None and device_b == None) | (device_a == None and device_b == None) | (device_a != None and device_b != None):
@@ -1884,11 +1881,11 @@ def user_ques(user_question_1, user_question, classification):
                     data_new = data
                     data_new = data_new.dropna(subset=['ASPECT_SENTIMENT'])
                     data_new = data_new[~data_new["ASPECT"].isin(["Generic", "Account", "Customer-Service", "Browser"])]
+                    dataframe_as_dict = data_new.to_dict(orient='records')
                     data_new = make_desired_df(data_new)
                     styled_df = data_new.style.applymap(lambda x: custom_color_gradient(x, int(-100), int(100)), subset=['ASPECT_SENTIMENT'])
                     data_filtered = data_new[(data_new['ASPECT'] != 'TOTAL') & (data_new['ASPECT'] != 'Generic')]
                     top_four_aspects = data_filtered.head(4)
-                    dataframe_as_dict = data_new.to_dict(orient='records')
                     aspects_list = top_four_aspects['ASPECT'].to_list()
             #         formatted_aspects = ', '.join(f"'{aspect}'" for aspect in aspects_list)
                     key_df = get_final_df(aspects_list, device)
