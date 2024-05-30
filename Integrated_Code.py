@@ -38,15 +38,13 @@ global history
 
 history = []
 
-
-
-
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
-os.environ["AZURE_OPENAI_API_KEY"] = "a22e367d483f4718b9e96b1f52ce6d53"
-os.environ["AZURE_OPENAI_ENDPOINT"] = "https://hulk-openai.openai.azure.com/"
+AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY")
+AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT")
+
 global model
 model = AzureChatOpenAI(
-            azure_deployment="Verbatim-Synthesis",
+            azure_deployment="Thruxton_R",
             api_version='2024-03-01-preview',temperature = 0.0)
 ####################################################################################################################----------------Copilot-------------------#####################################################################################################
 
@@ -396,7 +394,7 @@ def get_conversational_chain_quant():
 def query_quant(user_question,history,vector_store_path="faiss_index_CopilotSample"):
     try:
         # Initialize the embeddings model
-        embeddings = AzureOpenAIEmbeddings(azure_deployment="Embedding-Model")
+        embeddings = AzureOpenAIEmbeddings(azure_deployment="MV_Agusta")
         
         # Load the vector store with the embeddings model
         vector_store = FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
@@ -517,7 +515,7 @@ def get_conversational_chain_aspect_wise_detailed_summary():
 # Function to handle user queries using the existing vector store
 def query_aspect_wise_detailed_summary(user_question,vector_store_path="faiss_index_CopilotSample"):
     try:
-        embeddings = AzureOpenAIEmbeddings(azure_deployment="Embedding-Model")
+        embeddings = AzureOpenAIEmbeddings(azure_deployment="MV_Agusta")
         vector_store = FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
         chain = get_conversational_chain_aspect_wise_detailed_summary()
         docs = vector_store.similarity_search(user_question)
@@ -637,7 +635,7 @@ def get_conversational_chain_aspect_wise_detailed_summary():
 # Function to handle user queries using the existing vector store
 def query_aspect_wise_detailed_summary(user_question,vector_store_path="faiss_index_CopilotSample"):
     try:
-        embeddings = AzureOpenAIEmbeddings(azure_deployment="Embedding-Model")
+        embeddings = AzureOpenAIEmbeddings(azure_deployment="MV_Agusta")
         vector_store = FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
         chain = get_conversational_chain_aspect_wise_detailed_summary()
         docs = vector_store.similarity_search(user_question)
@@ -763,7 +761,7 @@ def get_conversational_chain_quant_classify2():
 def query_quant_classify2(user_question, vector_store_path="faiss_index_CopilotSample"):
     try:
         # Initialize the embeddings model
-        embeddings = AzureOpenAIEmbeddings(azure_deployment="Embedding-Model")
+        embeddings = AzureOpenAIEmbeddings(azure_deployment="MV_Agusta")
         
         # Load the vector store with the embeddings model
         vector_store = FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
@@ -879,7 +877,7 @@ def get_conversational_chain_detailed_summary():
 # Function to handle user queries using the existing vector store
 def query_detailed_summary(dataframe_as_dict,user_question, history, vector_store_path="faiss_index_CopilotSample"):
     try:
-        embeddings = AzureOpenAIEmbeddings(azure_deployment="Embedding-Model")
+        embeddings = AzureOpenAIEmbeddings(azure_deployment="MV_Agusta")
         vector_store = FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
         chain = get_conversational_chain_detailed_summary()
         docs = vector_store.similarity_search(user_question)
@@ -1215,7 +1213,7 @@ def get_conversational_chain_generic():
 
 def query_detailed_generic(user_question, vector_store_path="faiss_index_CopilotSample"):
     try:
-        embeddings = AzureOpenAIEmbeddings(azure_deployment="Embedding-Model")
+        embeddings = AzureOpenAIEmbeddings(azure_deployment="MV_Agusta")
         vector_store = FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
         chain = get_conversational_chain_generic()
         docs = vector_store.similarity_search(user_question)
@@ -1438,12 +1436,12 @@ def classify(user_question):
 from openai import AzureOpenAI
 
 client = AzureOpenAI(
-    api_key=os.getenv("672370cd6ca440f2a0327351d4f4d2bf"),  
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
     api_version="2024-02-01",
-    azure_endpoint = os.getenv("https://hulk-openai.openai.azure.com/")
+    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
     )
     
-deployment_name='SurfaceGenAI'
+deployment_name='Surface_Analytics'
 
 context_Prompt = """
 
@@ -1652,7 +1650,7 @@ def get_conversational_chain_detailed_compare():
 # Function to handle user queries using the existing vector store
 def query_detailed_compare(user_question, vector_store_path="faiss_index_CopilotSample"):
     try:
-        embeddings = AzureOpenAIEmbeddings(azure_deployment="Embedding-Model")
+        embeddings = AzureOpenAIEmbeddings(azure_deployment="MV_Agusta")
         vector_store = FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
         chain = get_conversational_chain_detailed_compare()
         docs = vector_store.similarity_search(user_question)
@@ -1675,12 +1673,12 @@ def check_history_length(a,last_response):
 from openai import AzureOpenAI
 
 client = AzureOpenAI(
-    api_key=os.getenv("672370cd6ca440f2a0327351d4f4d2bf"),  
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
     api_version="2024-02-01",
-    azure_endpoint = os.getenv("https://hulk-openai.openai.azure.com/")
+    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
     )
     
-deployment_name='SurfaceGenAI'
+deployment_name='Surface_Analytics'
 
 rephrase_Prompt = """
 

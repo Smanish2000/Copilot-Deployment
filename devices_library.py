@@ -40,21 +40,19 @@ from rapidfuzz import process, fuzz
 global full_response
 full_response = ""
 
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
-#Initializing API Keys to use LLM
-os.environ["AZURE_OPENAI_API_KEY"] = "a22e367d483f4718b9e96b1f52ce6d53"
-os.environ["AZURE_OPENAI_ENDPOINT"] = "https://hulk-openai.openai.azure.com/"
+AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY")
+AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT")
 
 from openai import AzureOpenAI
 client = AzureOpenAI(
-    api_key=os.getenv("672370cd6ca440f2a0327351d4f4d2bf"),  
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),  
     api_version="2024-02-01",
-    azure_endpoint = os.getenv("https://hulk-openai.openai.azure.com/")
+    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
     )
 
-deployment_name='SurfaceGenAI'
-azure_deployment_name = "Verbatim-Synthesis"
-azure_embedding_name ="Embedding-Model"
+deployment_name='Surface_Analytics'
+azure_deployment_name = "Thruxton_R"
+azure_embedding_name ="MV_Agusta"
 
 RCR_Sales_Data = pd.read_csv('RCR Sales Data Sample V5.csv')
 dev_mapping = pd.read_csv('SalesSentimentMapping_V2.csv')
@@ -271,35 +269,6 @@ def get_sales_units(device_name):
         
     return total_sales
     
-st.markdown("""
-<head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-</head>
-""", unsafe_allow_html=True) 
-  
-def get_star_rating_html(net_sentiment):
-    try:
-        # Normalize net sentiment from -100 to 100 to 0 to 10 for star ratings
-        normalized_rating = (net_sentiment + 100) / 40
-
-        # Determine the number of full and half stars
-        full_stars = int(normalized_rating)
-        half_star = 1 if normalized_rating - full_stars >= 0.5 else 0
-
-        # CSS for the stars
-        star_style = 'font-size: 16px; margin-right: 5px; color: gold;'  # Adjust font-size and margin-right as needed
-
-        # Generate the HTML for the stars
-        star_html = '<span>'
-        star_html += f'<i class="fa fa-star" style="{star_style}"></i>' * full_stars
-        if half_star:
-            star_html += f'<i class="fa fa-star-half-o" style="{star_style}"></i>'  # Half-star icon from Font Awesome
-        star_html += f'<i class="fa fa-star-o" style="{star_style}"></i>' * (5 - full_stars - half_star)
-        star_html += '</span>'
-        return star_html
-    except:
-        return "NA"
-
 def correct_compete_sales_query(SQL_Query):
     strr = SQL_Query
     strr = strr.replace("ABS(C.ASP - S.ASP) < LIKE  400","ABS(C.ASP - S.ASP) <=  400")
