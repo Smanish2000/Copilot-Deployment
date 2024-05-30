@@ -49,8 +49,11 @@ model = AzureChatOpenAI(
 
 Copilot_Sentiment_Data  = pd.read_csv("New_CoPilot_Data.csv")
 
-
-
+st.markdown("""
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+""", unsafe_allow_html=True)
 
 def Sentiment_Score_Derivation(value):
     try:
@@ -1565,7 +1568,7 @@ def classify_prompts(user_question):
 
 
 def get_conversational_chain_detailed_compare():
-    global model
+    global model, history
     try:
         prompt_template = """
         
@@ -1642,7 +1645,8 @@ def get_conversational_chain_detailed_compare():
           Please provide a comprehensive Review summary, feature comparison, feature suggestions for specific product families and actionable insights that can help in product development and marketing strategies.
           Generate acurate response only, do not provide extra information.
             
-            Important: Generate outputs using the provided dataset only, don't use pre-trained information to generate outputs.
+            Important: Generate outputs using the provided dataset only, don't use pre-trained information to generate outputs.\n Following is the previous conversation from User and Response, use it to get context only:""" + str(history) + """\n
+                Use the above conversation chain to gain context if the current prompt requires context from previous conversation.\n
         Context:\n {context}?\n
         Question: \n{question}\n
  
